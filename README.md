@@ -1,4 +1,4 @@
-# Game engine used : 
+\# Game engine used : 
 Godot 4.2.1
 
 ![image](https://github.com/Venky-234/speed-square-pc/assets/77890305/b1a13b57-0ef8-420c-8842-b8c5068a2d85)
@@ -13,4 +13,22 @@ Godot 4.2.1
 # This game is on itch.io too 
 https://dummy56.itch.io/speed-square
 
+# License
+
+speed square game
+
+Copyright (C) 2024 Venky-234 and contributors
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
