@@ -12,4 +12,4 @@ Godot 4.2.1
 
 
 # This game is on itch.io too 
-<iframe frameborder="0" src="https://itch.io/embed/2475211?linkback=true&amp;border_width=4&amp;bg_color=000000&amp;fg_color=75ffff&amp;link_color=fe00ff&amp;border_color=ff2530" width="558" height="173"><a href="https://dummy56.itch.io/speed-square">Speed Square by DuMmy#56</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/2475211?border_width=4&amp;bg_color=000000&amp;fg_color=75ffff&amp;link_color=fe00ff&amp;border_color=ff2530" width="558" height="173"><a href="https://dummy56.itch.io/speed-square">Speed Square by DuMmy#56</a></iframe>
