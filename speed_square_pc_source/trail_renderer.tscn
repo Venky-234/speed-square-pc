@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn6akfqnhuitq"]
+
+[ext_resource type="Script" path="res://trail_renderer.gd" id="1_u5nk3"]
+
+[sub_resource type="Curve" id="Curve_7jyuq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_6v2un"]
+
+[node name="trail_renderer" type="Line2D"]
+show_behind_parent = true
+position = Vector2(1.72159, 2.23407)
+scale = Vector2(1.37931, 1.37931)
+width_curve = SubResource("Curve_7jyuq")
+gradient = SubResource("Gradient_6v2un")
+antialiased = true
+script = ExtResource("1_u5nk3")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://xa5a67axcxrf"]
+
+[ext_resource type="Script" path="res://start.gd" id="1_hq6fn"]
+[ext_resource type="FontFile" uid="uid://b2p71d75wtr0g" path="res://sofachrome.rg-regular.otf" id="1_pjhoi"]
+
+[node name="enter_game" type="Node2D"]
+script = ExtResource("1_hq6fn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -264.0
+offset_top = 336.0
+offset_right = 264.0
+offset_bottom = 596.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_pjhoi")
+theme_override_font_sizes/font_size = 40
+text = "speed square
+
+
+
+  hit p to play"

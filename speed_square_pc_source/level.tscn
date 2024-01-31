@@ -1,0 +1,2425 @@
+[gd_scene load_steps=30 format=3 uid="uid://b07vfnis78u8y"]
+
+[ext_resource type="Texture2D" uid="uid://cg66ftpesld74" path="res://player_tex.png" id="1_2fnrb"]
+[ext_resource type="Script" path="res://follow.gd" id="1_coynk"]
+[ext_resource type="Script" path="res://full_screen.gd" id="1_g8eko"]
+[ext_resource type="Script" path="res://movement.gd" id="1_i254q"]
+[ext_resource type="Texture2D" uid="uid://bsptkoh3qcq21" path="res://floor.png" id="1_y24et"]
+[ext_resource type="Texture2D" uid="uid://bxrmikfbbbfp3" path="res://stopwatch_back.png" id="2_0up5u"]
+[ext_resource type="Script" path="res://group_killer1.gd" id="3_vb1pr"]
+[ext_resource type="Script" path="res://set_mass.gd" id="5_eig2f"]
+[ext_resource type="Texture2D" uid="uid://cdnf5rcxnvnfm" path="res://killer_box.png" id="5_f5lym"]
+[ext_resource type="Texture2D" uid="uid://dky5cbuw7jup6" path="res://killer.png" id="5_m135a"]
+[ext_resource type="Script" path="res://stopwatch.gd" id="5_wvcgf"]
+[ext_resource type="PhysicsMaterial" uid="uid://cgifxtguda0mh" path="res://physics_mat.tres" id="6_kmq73"]
+[ext_resource type="Texture2D" uid="uid://dm86fji40m2dx" path="res://anti_grav_line.png" id="8_yyqmf"]
+[ext_resource type="Script" path="res://rotate_killer.gd" id="9_nu2ye"]
+[ext_resource type="Texture2D" uid="uid://c05lvgak02i8p" path="res://killer_bar_tex.png" id="10_5m51u"]
+[ext_resource type="FontFile" uid="uid://b2p71d75wtr0g" path="res://sofachrome.rg-regular.otf" id="11_fsm87"]
+[ext_resource type="Texture2D" uid="uid://bu2wuqqpt3v8c" path="res://arrow.png" id="12_g7ig7"]
+[ext_resource type="Script" path="res://reinstantiate_train.gd" id="18_5jvmr"]
+[ext_resource type="PackedScene" uid="uid://0tp0a7qa388f" path="res://transition.tscn" id="18_g4vsa"]
+[ext_resource type="PackedScene" uid="uid://bn6akfqnhuitq" path="res://trail_renderer.tscn" id="19_13sr1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ykkkt"]
+font_size = 24
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_gxgoa"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 1.01
+glow_mix = 0.25
+glow_bloom = 0.1
+glow_blend_mode = 1
+glow_hdr_luminance_cap = 5.86
+adjustment_brightness = 1.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tr7c"]
+size = Vector2(50.0087, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dpia"]
+size = Vector2(2.76962, 112.709)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spcuy"]
+size = Vector2(33.7456, 87.9846)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rnf4h"]
+line_spacing = 15.0
+font_size = 20
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jwcs"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtpgi"]
+size = Vector2(36.7946, 134)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2j65o"]
+line_spacing = 15.0
+font = ExtResource("11_fsm87")
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_g8eko")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="stopwatch_back" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+visibility_layer = 3
+position = Vector2(977, 133)
+rotation = 1.57435
+scale = Vector2(-0.408794, 4.6857)
+skew = 0.000863552
+texture = ExtResource("2_0up5u")
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 89.0
+offset_right = 20.0
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("11_fsm87")
+label_settings = SubResource("LabelSettings_ykkkt")
+horizontal_alignment = 1
+script = ExtResource("5_wvcgf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gxgoa")
+
+[node name="box" type="Node2D" parent="."]
+
+[node name="left" type="Node2D" parent="box"]
+position = Vector2(-357, 724)
+rotation = 1.5708
+scale = Vector2(51.029, -4.95361)
+
+[node name="floor_skin" type="Sprite2D" parent="box/left"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="box/left"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box/left/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="right" type="Node2D" parent="box"]
+position = Vector2(1485, 724)
+rotation = 1.5708
+scale = Vector2(51.029, -4.95361)
+
+[node name="floor_skin" type="Sprite2D" parent="box/right"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="box/right"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box/right/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="up" type="Node2D" parent="box"]
+position = Vector2(572, -664)
+rotation = 3.14159
+scale = Vector2(42.0802, 4.50098)
+
+[node name="floor_skin" type="Sprite2D" parent="box/up"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="box/up"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box/up/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="down" type="Node2D" parent="box"]
+position = Vector2(563, 1894)
+scale = Vector2(41.6155, 9.70029)
+
+[node name="floor_skin" type="Sprite2D" parent="box/down"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="box/down"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box/down/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="levels" type="Node2D" parent="."]
+
+[node name="level_1" type="Node2D" parent="levels"]
+position = Vector2(467, 0)
+scale = Vector2(28.2251, 0.701008)
+
+[node name="platform" type="Node2D" parent="levels/level_1"]
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/platform"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/platform/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obstacles" type="Node2D" parent="levels/level_1"]
+scale = Vector2(1, 1.00533)
+
+[node name="obs1" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(-6.23558, -349.063)
+scale = Vector2(0.246062, 0.986238)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs1"]
+rotation = 1.5708
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs1"]
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs1/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs2" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(-13.2506, -94.1501)
+scale = Vector2(0.147877, 3.14875)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs2"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs2/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs3" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(-1.2046, -670.463)
+scale = Vector2(0.389197, 5.03755)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs3"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs3/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs4" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(8.2196, -138.372)
+scale = Vector2(0.0263993, 5.20873)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs4"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs4/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs5" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(12.2941, -313.834)
+scale = Vector2(0.0263993, 12.1701)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs5"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs5/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs6" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(16.9352, -546.356)
+scale = Vector2(0.0263993, 10.0018)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs6"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs6/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs7" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(20.8325, -229.669)
+scale = Vector2(0.0263993, 8.74649)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs7"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs7/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="obs8" type="Node2D" parent="levels/level_1/obstacles"]
+position = Vector2(24.3755, -519.252)
+scale = Vector2(0.0263993, 10.8577)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_1/obstacles/obs8"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/obstacles/obs8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/obstacles/obs8/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="killers" type="Node2D" parent="levels/level_1"]
+scale = Vector2(1, 0.995)
+
+[node name="killer1" type="Node2D" parent="levels/level_1/killers"]
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer1"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer1/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer1" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer1/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer2" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(2.51549, 0)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer2"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer2/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer2" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer2/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer3" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(4.99555, 0)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer3"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer3/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer3" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer3/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer4" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(12.1169, 1.43369)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer4"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer4/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer4" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer4/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer5" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(14.5969, 1.43369)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer5"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer5/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer5/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(5.13728, -510.662)
+rotation = 3.08923
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer6"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer6/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(2.72806, -510.392)
+rotation = 3.08923
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer7"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer8" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(18.5296, 0)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer8"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer8"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer8/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer8" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer8/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer9" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(12.3294, -795.695)
+rotation = 3.08923
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer9"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer9"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer9/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer9" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer9/Area2D"]
+position = Vector2(8.37259, 64.9546)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer10" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(0.248005, -510.392)
+rotation = 3.08923
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer10"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer10"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer10/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer10" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer10/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer11" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(22.5331, 0)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer11"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer11/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer11" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer11/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer12" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(27.2098, 0)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer12"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer12"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer12/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer12" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer12/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer13" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(23.1354, -4.30106)
+scale = Vector2(0.79, 0.79)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer13"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer13"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer13/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer13" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer13/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer14" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(38.7244, 24.3727)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer14"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer14"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer14/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer14" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer14/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer15" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(23.1353, -736.548)
+rotation = 3.08923
+scale = Vector2(0.495, 1.41)
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer15"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer15"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer15/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer15" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer15/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer16" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(20.6905, -736.205)
+rotation = 3.08923
+scale = Vector2(0.495, 1.41)
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer16"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer16"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer16/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer16" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer16/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer17" type="Node2D" parent="levels/level_1/killers"]
+position = Vector2(18.2814, -736.351)
+rotation = 3.08923
+scale = Vector2(0.495, 1.41)
+skew = 0.0523599
+
+[node name="Killer" type="Sprite2D" parent="levels/level_1/killers/killer17"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_1/killers/killer17"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer17/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_1/killers/killer17" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_1/killers/killer17/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="next_level_check1" type="Area2D" parent="levels/level_1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_1/next_level_check1"]
+position = Vector2(28.4499, 129.813)
+scale = Vector2(2.29955, 1)
+shape = SubResource("RectangleShape2D_3dpia")
+
+[node name="level_2" type="Node2D" parent="levels"]
+position = Vector2(655, 485)
+scale = Vector2(28.2251, 0.701008)
+
+[node name="platform" type="Node2D" parent="levels/level_2"]
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_2/platform"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_2/platform/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="killers" type="Node2D" parent="levels/level_2"]
+
+[node name="killer1" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(17.573, -236.802)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer1"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer1/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer1" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer1/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer2" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(8.7865, -236.802)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer2"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer2/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer2" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer2/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer3" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(-0.283438, -236.802)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer3"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer3/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer3" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer3/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer4" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(-8.96365, -236.802)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer4"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer4/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer4" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer4/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer5" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(-21.9663, -112.695)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer5"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer5/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer5/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(-14.7387, 2.85309)
+scale = Vector2(1.005, 1.005)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/killer6"]
+position = Vector2(-8.29047, -75.6054)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer6/StaticBody2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/killer6/Area2D"]
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="group_killer1" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(10, -664.757)
+script = ExtResource("3_vb1pr")
+
+[node name="killer5" type="Node2D" parent="levels/level_2/killers/group_killer1"]
+position = Vector2(2.44483, 62.4163)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer1/killer5"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer1/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer5/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer1/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer5/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_2/killers/group_killer1"]
+position = Vector2(0.0355797, 62.6863)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer1/killer6"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer1/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer1/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer6/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_2/killers/group_killer1"]
+position = Vector2(-2.44449, 62.6864)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer1/killer7"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer1/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer1/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer1/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="group_killer2" type="Node2D" parent="levels/level_2/killers"]
+position = Vector2(-18.317, -27.1039)
+scale = Vector2(1, -1)
+script = ExtResource("3_vb1pr")
+
+[node name="killer5" type="Node2D" parent="levels/level_2/killers/group_killer2"]
+position = Vector2(2.44483, 62.4163)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer2/killer5"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer2/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer5/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer2/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer5/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_2/killers/group_killer2"]
+position = Vector2(0.0355797, 62.6863)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer2/killer6"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer2/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer2/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer6/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_2/killers/group_killer2"]
+position = Vector2(-2.44449, 62.6864)
+rotation = 3.08923
+scale = Vector2(1, 1.615)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_2/killers/group_killer2/killer7"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_2/killers/group_killer2/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_2/killers/group_killer2/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_2/killers/group_killer2/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="next_level_check2" type="Area2D" parent="levels/level_2"]
+position = Vector2(-63.4896, 5.70612)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_2/next_level_check2"]
+position = Vector2(35.4649, 28.5303)
+scale = Vector2(2.20259, 0.943846)
+shape = SubResource("RectangleShape2D_3dpia")
+
+[node name="level_4" type="Node2D" parent="levels"]
+
+[node name="platform" type="Node2D" parent="levels/level_4"]
+position = Vector2(675, 1492)
+scale = Vector2(27.32, 1)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_4/platform"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_4/platform/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="anti_grav_line" type="Node2D" parent="levels/level_4"]
+position = Vector2(1137, 1241)
+rotation = 1.56847
+scale = Vector2(6.43911, 0.24)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_4/anti_grav_line"]
+visibility_layer = 2
+texture = ExtResource("8_yyqmf")
+
+[node name="anti_grav_line2" type="Node2D" parent="levels/level_4"]
+position = Vector2(7, 1241)
+rotation = 1.56847
+scale = Vector2(6.43911, 0.24)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_4/anti_grav_line2"]
+visibility_layer = 2
+texture = ExtResource("8_yyqmf")
+
+[node name="anti_grav_zone" type="Area2D" parent="levels/level_4"]
+position = Vector2(618, 1275)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_4/anti_grav_zone"]
+position = Vector2(-45.9999, -35)
+scale = Vector2(33.96, 5.16)
+shape = SubResource("RectangleShape2D_spcuy")
+
+[node name="killer1" type="Node2D" parent="levels/level_4"]
+position = Vector2(920, 1384)
+rotation = -0.0209253
+scale = Vector2(37.7887, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer1"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer1/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer1" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer1/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer2" type="Node2D" parent="levels/level_4"]
+position = Vector2(758, 1096)
+rotation = -0.0209253
+scale = Vector2(-37.789, -2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer2"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer2/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer2" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer2/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer3" type="Node2D" parent="levels/level_4"]
+position = Vector2(668, 1096)
+rotation = -0.0209253
+scale = Vector2(-37.789, -2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer3"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer3/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer3" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer3/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer4" type="Node2D" parent="levels/level_4"]
+position = Vector2(578, 1044)
+rotation = -0.0209253
+scale = Vector2(-37.789, -0.793584)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer4"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer4/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer4" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer4/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer_bar1" type="Node2D" parent="levels/level_4"]
+position = Vector2(290, 1130)
+rotation = 6.28319
+scale = Vector2(9.23799, -1.71967)
+skew = 0.0523598
+script = ExtResource("9_nu2ye")
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer_bar1"]
+position = Vector2(0.0708008, -11.4695)
+rotation = -0.00255897
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("10_5m51u")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer_bar1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer_bar1/StaticBody2D"]
+polygon = PackedVector2Array(-1.3008, -61.3416, 1.1881, -61.6096, 1.43859, 38.3312, -1.05031, 38.5992)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer_bar1" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer_bar1/Area2D"]
+polygon = PackedVector2Array(-1.3008, -61.3416, 1.1881, -61.6096, 1.43859, 38.3312, -1.05031, 38.5992)
+
+[node name="killer5" type="Node2D" parent="levels/level_4"]
+position = Vector2(298, 1424)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.134)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer5"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer5/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer5/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_4"]
+position = Vector2(206, 1425)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.134)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer6"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer6/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_4"]
+position = Vector2(751, 1422)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.149)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer7"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer8" type="Node2D" parent="levels/level_4"]
+position = Vector2(659, 1423)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.149)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer8"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer8"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer8/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer8" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer8/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer9" type="Node2D" parent="levels/level_4"]
+position = Vector2(518, 1422)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.134)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer9"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer9"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer9/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer9" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer9/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer10" type="Node2D" parent="levels/level_4"]
+position = Vector2(426, 1423)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.134)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer10"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer10"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer10/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer10" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer10/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer11" type="Node2D" parent="levels/level_4"]
+position = Vector2(-232, 1422)
+rotation = -0.0209253
+scale = Vector2(37.789, 1.134)
+
+[node name="Killer" type="Sprite2D" parent="levels/level_4/killer11"]
+visibility_layer = 2
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_4/killer11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer11/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_4/killer11" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_4/killer11/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Label" type="Label" parent="levels/level_4"]
+modulate = Color(1, 1, 1, 0.443137)
+visibility_layer = 2
+offset_left = 1163.0
+offset_top = 1131.0
+offset_right = 1349.0
+offset_bottom = 1211.0
+theme_override_fonts/font = ExtResource("11_fsm87")
+text = "  Gravity
+reverses"
+label_settings = SubResource("LabelSettings_rnf4h")
+
+[node name="arrow_sign" type="Sprite2D" parent="levels/level_4"]
+self_modulate = Color(1, 1, 1, 0.368627)
+visibility_layer = 2
+position = Vector2(1212, 1103)
+scale = Vector2(0.56627, 0.458226)
+texture = ExtResource("12_g7ig7")
+
+[node name="arrow_sign2" type="Sprite2D" parent="levels/level_4"]
+self_modulate = Color(1, 1, 1, 0.368627)
+visibility_layer = 2
+position = Vector2(1212, 1224)
+scale = Vector2(0.56627, 0.458226)
+texture = ExtResource("12_g7ig7")
+
+[node name="level_3" type="Node2D" parent="levels"]
+position = Vector2(467, 998)
+scale = Vector2(28.2251, 0.701008)
+
+[node name="floor_skin" type="Sprite2D" parent="levels/level_3"]
+texture = ExtResource("1_y24et")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/StaticBody2D"]
+position = Vector2(-0.00436401, 0)
+shape = SubResource("RectangleShape2D_4tr7c")
+
+[node name="killer_group" type="Node2D" parent="levels/level_3"]
+position = Vector2(1.02745, -68.4728)
+scale = Vector2(0.91, 0.91)
+
+[node name="killer2" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-9.06972, -620.406)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer2"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer2/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer2" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer2/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer3" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-11.5145, -620.063)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer3"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer3/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer3" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer3/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer4" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-13.9236, -620.209)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer4"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer4/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer4" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer4/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer5" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-1.80667, -621.352)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer5"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer5/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer5/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-4.25147, -621.01)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer6"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer6/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(-6.66057, -621.155)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer7"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer8" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(5.45621, -621.002)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer8"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer8"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer8/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer8" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer8/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer9" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(3.01142, -620.659)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer9"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer9"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer9/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer9" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer9/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer10" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(0.602306, -620.805)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer10"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer10"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer10/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer10" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer10/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer11" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(12.7192, -620.522)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer11"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer11/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer11" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer11/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer12" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(10.2745, -620.179)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer12"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer12"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer12/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer12" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer12/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer13" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(7.86535, -620.325)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer13"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer13"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer13/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer13" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer13/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer14" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(20.0177, -621.501)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer14"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer14"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer14/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer14" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer14/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer15" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(17.5729, -621.158)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer15"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer15"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer15/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer15" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer15/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer16" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(15.1638, -621.304)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer16"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer16"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer16/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer16" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer16/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer17" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(27.2808, -621.021)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer17"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer17"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer17/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer17" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer17/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer18" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(24.836, -620.678)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer18"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer18"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer18/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer18" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer18/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer19" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(22.4269, -620.824)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer19"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer19"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer19/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer19" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer19/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer20" type="Node2D" parent="levels/level_3/killer_group"]
+position = Vector2(29.619, -619.99)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group/killer20"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group/killer20"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer20/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group/killer20" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group/killer20/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer_group2" type="Node2D" parent="levels/level_3"]
+position = Vector2(0.779448, -730.377)
+scale = Vector2(1, -1)
+
+[node name="killer2" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-9.06972, -620.406)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer2"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer2/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer2" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer2/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer3" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-11.5145, -620.063)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer3"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer3/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer3" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer3/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer4" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-13.9236, -620.209)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer4"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer4/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer4" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer4/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer5" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-1.80667, -621.352)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer5"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer5/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer5" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer5/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer6" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-4.25147, -621.01)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer6"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer6/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer6" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer6/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer7" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(-6.66057, -621.155)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer7"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer7"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer7/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer7" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer7/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer8" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(5.45621, -621.002)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer8"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer8"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer8/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer8" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer8/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer9" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(3.01142, -620.659)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer9"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer9"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer9/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer9" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer9/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer10" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(0.602306, -620.805)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer10"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer10"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer10/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer10" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer10/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer11" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(12.7192, -620.522)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer11"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer11/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer11" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer11/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer12" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(10.2745, -620.179)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer12"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer12"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer12/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer12" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer12/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer13" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(7.86535, -620.325)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer13"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer13"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer13/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer13" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer13/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer14" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(20.0177, -621.501)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer14"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer14"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer14/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer14" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer14/Area2D"]
+position = Vector2(8.36398, 64.146)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer15" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(17.5729, -621.158)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer15"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer15"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer15/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer15" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer15/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer16" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(15.1638, -621.304)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer16"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer16"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer16/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer16" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer16/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer19" type="Node2D" parent="levels/level_3/killer_group2"]
+position = Vector2(22.4269, -620.824)
+rotation = 3.08923
+scale = Vector2(0.965, 2.165)
+skew = 0.0523598
+
+[node name="Killer" type="Sprite2D" parent="levels/level_3/killer_group2/killer19"]
+position = Vector2(0.0708008, -11.4695)
+scale = Vector2(0.0354294, 1.42652)
+texture = ExtResource("5_m135a")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="levels/level_3/killer_group2/killer19"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer19/StaticBody2D"]
+position = Vector2(8.36134, 64.5159)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="Area2D" type="Area2D" parent="levels/level_3/killer_group2/killer19" groups=["killer_group"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="levels/level_3/killer_group2/killer19/Area2D"]
+position = Vector2(8.36398, 64.1461)
+polygon = PackedVector2Array(-8.46763, -126.164, -8.21963, -126.164, -7.05046, -34.4085, -7.05046, -25.8063, -9.53052, -25.8063, -9.53052, -35.8421)
+
+[node name="killer_box_group" type="Node2D" parent="levels/level_3"]
+position = Vector2(3.68466, -198.286)
+scale = Vector2(0.63, 0.63)
+script = ExtResource("5_eig2f")
+
+[node name="killer_box1" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(-8.00706, -365.188)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box1"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box1/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box1/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box2" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(-4.32239, -373.747)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box2"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box2/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box2/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box3" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(5.95215, -365.188)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box3"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box3/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box3/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box4" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(9.63681, -373.747)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box4"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box4/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box4/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box5" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(19.9822, -353.776)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box5"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box5/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box5/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box6" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(23.6669, -362.335)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box6"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box6/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box6/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box7" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(-11.5849, -222.401)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box7"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box7/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box7/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box8" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(-7.9002, -230.96)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box8"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box8/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box8/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box9" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(2.37434, -222.401)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box9"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box9/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box9/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box10" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(6.059, -230.96)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box10"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box10/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box10/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box11" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(16.4044, -210.988)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box11"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box11/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box11/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="killer_box12" type="Node2D" parent="levels/level_3/killer_box_group"]
+position = Vector2(20.089, -219.548)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="levels/level_3/killer_box_group/killer_box12"]
+position = Vector2(4.72284, 6.26953)
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+physics_material_override = ExtResource("6_kmq73")
+can_sleep = false
+
+[node name="player_skin" type="Sprite2D" parent="levels/level_3/killer_box_group/killer_box12/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("5_f5lym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/killer_box_group/killer_box12/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="next_level_check3" type="Area2D" parent="levels/level_3"]
+position = Vector2(-7.12132, 47.075)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_3/next_level_check3"]
+position = Vector2(35.4649, 48.5015)
+scale = Vector2(2.20259, 0.943846)
+shape = SubResource("RectangleShape2D_3dpia")
+
+[node name="level_over" type="Node2D" parent="levels"]
+
+[node name="Sprite2D" type="Sprite2D" parent="levels/level_over"]
+modulate = Color(1, 1, 1, 0.352941)
+position = Vector2(563, 1584)
+scale = Vector2(31.88, 2.69293)
+texture = ExtResource("5_f5lym")
+
+[node name="finished" type="Area2D" parent="levels/level_over"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="levels/level_over/finished"]
+position = Vector2(562.5, 1584)
+scale = Vector2(43.24, 1)
+shape = SubResource("RectangleShape2D_xtpgi")
+
+[node name="Label" type="Label" parent="levels"]
+modulate = Color(1, 1, 1, 0.231373)
+offset_left = -209.0
+offset_top = -320.0
+offset_right = 260.0
+offset_bottom = -145.0
+text = "use key A to go left 
+use key D to go right
+use space to fly
+use Key R to restart game
+
+(you can use arrow keys also)"
+label_settings = SubResource("LabelSettings_2j65o")
+
+[node name="player2" type="Node2D" parent="."]
+position = Vector2(-127, -233)
+rotation = 0.109851
+scale = Vector2(0.921048, -0.812415)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="player2"]
+rotation = 0.634899
+scale = Vector2(1.00203, 0.955498)
+input_pickable = true
+mass = 8.5
+can_sleep = false
+contact_monitor = true
+script = ExtResource("1_i254q")
+
+[node name="Camera2D" type="Camera2D" parent="player2/RigidBody2D"]
+rotation = 4.07011
+scale = Vector2(1.40145, -1.50321)
+zoom = Vector2(1.3, 1.3)
+position_smoothing_enabled = true
+script = ExtResource("1_coynk")
+
+[node name="player_skin" type="Sprite2D" parent="player2/RigidBody2D"]
+position = Vector2(-1.24816, -1.61966)
+scale = Vector2(0.725, 0.725)
+texture = ExtResource("1_2fnrb")
+script = ExtResource("18_5jvmr")
+
+[node name="trail_renderer" parent="player2/RigidBody2D/player_skin" instance=ExtResource("19_13sr1")]
+default_color = Color(1, 1, 1, 0.54902)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player2/RigidBody2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Area2D" type="Area2D" parent="player2/RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player2/RigidBody2D/Area2D"]
+position = Vector2(-1.24817, -1.61964)
+scale = Vector2(0.725, 0.725)
+shape = SubResource("RectangleShape2D_4jwcs")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="transition" parent="." instance=ExtResource("18_g4vsa")]
+
+[connection signal="area_entered" from="player2/RigidBody2D/Area2D" to="player2/RigidBody2D" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="player2/RigidBody2D/Area2D" to="player2/RigidBody2D" method="_on_area_2d_area_exited"]
